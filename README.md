@@ -4,11 +4,7 @@
 
 ### [Go](https://golang.org/dl/) 
 
-* `export GOPATH="$HOME/go"`
-* `export PATH="$PATH:$GOPATH/bin"`
-
-* `go get -u -f github.com/esimov/pigo/cmd/pigo`
-* `go install`
+* `go get github.com/zmb3/spotify`
 
 ### [Python3](https://www.python.org/)
 
@@ -20,7 +16,7 @@
 
 ## Running
 
-`python2 djgo.go`
+`python3 src/emotions.py & go djgo.go`
 
 ### Keys:
 <kbd>w</kbd> - Show/hide detected faces (default Off)<br/>

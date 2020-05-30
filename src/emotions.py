@@ -4,6 +4,9 @@ import cv2 as opencv
 import tensorflow as tf
 from statistics import mode
 
+# File to write to for Golang
+emotionFile = open("emotion.txt","w")
+
 # Clears logging info
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
@@ -73,6 +76,7 @@ while cap.isOpened(): # True:
     faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5,
 			minSize=(30, 30), flags=opencv.CASCADE_SCALE_IMAGE)
 
+    sumEmotions = []
     for face_coordinates in faces:
 
         x1, x2, y1, y2 = apply_offsets(face_coordinates, emotion_offsets)
@@ -90,6 +94,8 @@ while cap.isOpened(): # True:
         emotion_label_arg = np.argmax(emotion_prediction)
         emotion_text = emotion_labels[emotion_label_arg]
         emotion_window.append(emotion_text)
+
+        sumEmotions.append(emotion_text)
 
         if len(emotion_window) > frame_window:
             emotion_window.pop(0)
@@ -115,6 +121,11 @@ while cap.isOpened(): # True:
         draw_bounding_box(face_coordinates, rgb_image, color)
         draw_text(face_coordinates, rgb_image, emotion_mode,
                   color, 0, -45, 1, 1)
+
+    if len(sumEmotions) > 0:
+        emotionFile.seek(0)
+        emotionFile.write(max(set(sumEmotions), key=sumEmotions.count))
+        emotionFile.truncate()
 
     bgr_image = opencv.cvtColor(rgb_image, opencv.COLOR_RGB2BGR)
     opencv.imshow('window_frame', bgr_image)
