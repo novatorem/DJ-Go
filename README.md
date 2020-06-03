@@ -10,11 +10,13 @@
 * `go get -u -f github.com/esimov/pigo/cmd/pigo`
 * `go install`
 
-### [Python2](https://www.python.org/downloads/release/python-2718/)
+### [Python3](https://www.python.org/)
 
 * `pip install numpy`
 * `pip install opencv-python`
-* `pip install opencv-python-headless`
+* `pip install tensorflow`
+* `pip install opencv-python`
+
 
 ## Running
 
